@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TodoItem from './TodoItem';
 import uniqid from 'uniqid';
 
@@ -15,6 +15,12 @@ export default function TodoList() {
             text: e.target.value,
             isDone: false
         };
+
+        // useEffect(() => {
+        //     fetch(URL)
+        //     .then(res => res.json)
+        //     .then(data => console.log(data))
+        // }, [])
 
         setTodos(oldTodos => [...oldTodos, todo]);
         e.target.value = '';
