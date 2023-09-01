@@ -20,7 +20,8 @@ export default function TodoList() {
         e.target.value = '';
 
     }
-    const deleteTodoItemClickHandler = (id) => {
+    const deleteTodoItemClickHandler = (e, id) => {
+        e.stopPropagation();
         setTodos(oldTodos => oldTodos.filter(todo => todo.id !== id));
     };
 
@@ -28,9 +29,12 @@ export default function TodoList() {
         console.log('Toggle ', id);
         setTodos(oldTodos => {
             let selectedTodo = oldTodos.find( x => x.id === id);
+            let selectedIndex = oldTodos.findIndex(x => x.id === id);
+
             let toggledTodo = {...selectedTodo, isDone: !selectedTodo.isDone};
             let restTodos = oldTodos.filter(x => x.id !== id);
-            return [...restTodos, toggledTodo];
+
+            return [...oldTodos.slice(0, selectedIndex), toggledTodo, ...oldTodos.slice(selectedIndex + 1)]
         })
     };
 
